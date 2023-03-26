@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/bootstrap-grid.min.css" />
+    <link rel="stylesheet" href="css/bootstrap-reboot.min.css" />
+
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <script defer src="script.js"></script>
+    <title>VALOSKINS</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  </head>
+
+  <body
+    style="
+      background-image: url('img/jett.jpg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+    "
+  >
+    <datalist id="opciones"></datalist>
+
+    <script type="module">
+      const datalistOpciones = document.getElementById("opciones");
+
+      // We make a GET request to the Valorant weapon skins API to get the list of skins
+      fetch("https://valorant-api.com/v1/weapons/skins")
+        .then((response) => response.json())
+        .then((data) => {
+          //We store the list of skins in a variable called options
+          const opciones = data.data.map((skin) => {
+            return { value: skin.uuid, displayName: skin.displayName };
+          });
+
+          // We add the options to the datalist
+          opciones.forEach((opcion) => {
+            const option = document.createElement("option");
+            option.value = opcion.displayName;
+            option.textContent = opcion.displayName;
+            datalistOpciones.appendChild(option);
+          });
+
+          // We set the datalist in the input
+          inputSkin.setAttribute("list", "opciones");
+        })
+        .catch((error) => console.error(error));
+
+      // We listen for user input events on the text field and update its value with the selected value of the autocomplete
+      inputSkin.addEventListener("input", () => {
+        const valorSeleccionado = datalistOpciones.querySelector(
+          `option[displayname="${inputSkin.value}"]`
+        );
+        if (valorSeleccionado) {
+          inputSkin.value = valorSeleccionado.value;
+        }
+      });
+    </script>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-7 offset-md-3">
+          <img
+            src="img/banner.png"
+            class="img-fluid mx-auto d-block"
+            alt="banner"
+          />
+        </div>
+      </div>
+    </div>
+
+    <br /><br /><br /><br /><br /><br />
+    <label
+      for="input-field"
+      style="font-family: cursive, sans-serif; font-size: 18px; color: #e6e336"
+      >Enter the skin full name:</label
+    >
+    <input
+      type="text"
+      id="input-field"
+      style="
+        font-family: fantasy, sans-serif;
+        font-size: 16px;
+        padding: 10px;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+      "
+      class="skinName"
+      id="input-field"
+      name="name"
+    />
+
+    <br />
+    <br />
+    <br />
+    <main class="container">
+      <div class="countries"></div>
+      <button
+        class="btn btn-light"
+        data-bs-toggle="popover"
+        data-bs-placement="right"
+        data-bs-content="Please enter a valid skin name"
+      >
+        Show skin info
+      </button>
+      <div class="images"></div>
+    </main>
+    <br />
+    <br />
+
+    <div id="iconomin" style="width: 23rem">
+      <div class="card-body" id="tituloSkin"></div>
+    </div>
+    <br />
+    <br />
+
+    <div
+      class="accordion"
+      id="accordionExample"
+      style="background-color: transparent"
+    ></div>
+
+    <br /><br />
+    <footer class="footer bg-light">
+      <div class="container text-center">
+        <span class="text-muted">© 2023 VALOSKINS</span>
+      </div>
+    </footer>
+  </body>
+</html>
