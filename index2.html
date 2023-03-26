@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button
+      class="toolbar-icon history"
+      onclick="showPopup('PopUpHistory')"
+    ></button>
+    <div
+      class="window draggable"
+      id="PopUpHistory"
+      style="
+        margin: 32px;
+        width: 900px;
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      "
+    >
+      <div class="title-bar">
+        <div class="title-bar-text">History</div>
+        <div class="title-bar-controls">
+          <button class="HistoryClose" aria-label="Close"></button>
+        </div>
+      </div>
+      <div class="window-body">
+        <small>
+          <pre
+            style="
+              font: 10px/10px monospace;
+              background-color: #ffffff;
+              overflow-x: hidden;
+              overflow-y: scroll;
+              border: none;
+              text-align: center;
+            "
+          >
+        <img src="Members/history.png" alt="History" height="48" width="48">
+        <p>Soon...</p>
+      </pre>
+        </small>
+        <section class="field-row" style="justify-content: center">
+          <button class="HistoryOK" aria-label="OK" style="margin-top: 10px">
+            OK
+          </button>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>
